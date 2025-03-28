@@ -2,7 +2,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "sponsorkit",
+    "build": "sponsorkit"
   },
   "devDependencies": {
     "sponsorkit": "workspace:*"
