@@ -11,31 +11,65 @@ export default defineConfig({
   renderer: 'tiers',
   formats: ['svg', 'png'],
   tiers: [
-    // Past sponsors, currently only supports GitHub
+    // Past sponsors
     {
       title: 'Past Sponsors',
       monthlyDollars: -1,
       preset: tierPresets.xs,
     },
-    // Default tier
+    // $4 tier - Coffee
     {
       title: 'Backers',
+      monthlyDollars: 4,
       preset: tierPresets.base,
     },
+    // $8 tier - Early access
+    {
+      title: 'Early Adopters',
+      monthlyDollars: 8,
+      preset: tierPresets.base,
+    },
+    // $16 tier - Priority support
     {
       title: 'Sponsors',
-      monthlyDollars: 10,
+      monthlyDollars: 16,
       preset: tierPresets.medium,
     },
+    // $32 tier - Vote on features
+    {
+      title: 'Developers',
+      monthlyDollars: 32,
+      preset: tierPresets.medium,
+    },
+    // $64 tier - Silver
     {
       title: 'Silver Sponsors',
-      monthlyDollars: 50,
+      monthlyDollars: 64,
       preset: tierPresets.large,
     },
+    // $128 tier - Gold
     {
       title: 'Gold Sponsors',
-      monthlyDollars: 100,
+      monthlyDollars: 128,
       preset: tierPresets.xl,
+    },
+    // $256 tier - Platinum
+    {
+      title: 'Platinum Sponsors',
+      monthlyDollars: 256,
+      preset: tierPresets.xl,
+    },
+    // $512 tier - Diamond
+    {
+      title: 'Diamond Sponsors',
+      monthlyDollars: 512,
+      preset: tierPresets.xxl,
+    },
+    // $1024 tier - Special
+    {
+      title: 'Special Sponsors',
+      monthlyDollars: 1024,
+      preset: tierPresets.xxl,
     },
   ],
   outputDir: '.',
@@ -60,5 +94,46 @@ export default defineConfig({
         2
       )
     )
-  }
+  },
+  
+  // Additional renders for different formats
+  renders: [
+    {
+      name: 'sponsors',
+      width: 800,
+    },
+    {
+      name: 'sponsors.wide',
+      width: 1800,
+    },
+    {
+      name: 'sponsors.high-tier',
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars >= 64
+    },
+    {
+      name: 'sponsors.mid-tier',
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars >= 16 && sponsor.monthlyDollars < 64
+    },
+    {
+      name: 'sponsors.base-tier',
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars < 16 && sponsor.monthlyDollars >= 0
+    },
+    {
+      name: 'sponsors.past',
+      width: 800,
+      filter: (sponsor) => sponsor.monthlyDollars < 0
+    },
+    {
+      name: 'sponsors.circles',
+      width: 1000,
+      includePastSponsors: true,
+      renderer: 'circles',
+      circles: {
+        radiusPast: 3
+      }
+    }
+  ]
 })
