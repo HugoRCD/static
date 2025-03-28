@@ -20,7 +20,6 @@ export default defineConfig({
     // $4 tier - Coffee
     {
       title: 'Backers',
-      monthlyDollars: 4,
       preset: tierPresets.base,
     },
     // $8 tier - Early access
