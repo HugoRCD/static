@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "name": "Devin Schumacher",
+    "login": "devinschumacher",
+    "avatar": "https://avatars.githubusercontent.com/u/45643901?u=09bdf49235a1f74e9732d7f3dabc8235a832a826&v=4",
+    "amount": 32,
+    "link": "https://github.com/devinschumacher",
+    "org": false
+  },
+  {
+    "name": "Elia Bieri",
+    "login": "eliabieri",
+    "avatar": "https://avatars.githubusercontent.com/u/7094813?u=602dd39e6a819b0d7abde082d78f77f3ce10c696&v=4",
+    "amount": -1,
+    "link": "https://github.com/eliabieri",
+    "org": false
+  }
+]

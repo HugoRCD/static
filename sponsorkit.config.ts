@@ -1,4 +1,5 @@
 import { defineConfig, tierPresets } from 'sponsorkit'
+// @ts-ignore
 import fs from 'fs/promises'
 
 export default defineConfig({
@@ -50,25 +51,25 @@ export default defineConfig({
     {
       title: 'Gold Sponsors',
       monthlyDollars: 128,
-      preset: tierPresets.xl,
+      preset: tierPresets.large,
     },
     // $256 tier - Platinum
     {
       title: 'Platinum Sponsors',
       monthlyDollars: 256,
-      preset: tierPresets.xl,
+      preset: tierPresets.large,
     },
     // $512 tier - Diamond
     {
       title: 'Diamond Sponsors',
       monthlyDollars: 512,
-      preset: tierPresets.xxl,
+      preset: tierPresets.xl,
     },
     // $1024 tier - Special
     {
       title: 'Special Sponsors',
       monthlyDollars: 1024,
-      preset: tierPresets.xxl,
+      preset: tierPresets.xl,
     },
   ],
   outputDir: '.',
@@ -94,7 +95,7 @@ export default defineConfig({
       )
     )
   },
-  
+
   // Additional renders for different formats
   renders: [
     {

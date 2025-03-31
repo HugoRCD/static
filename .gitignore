@@ -1,2 +1,5 @@
 sponsorkit
 node_modules
+.env
+.cache.json
+.idea
