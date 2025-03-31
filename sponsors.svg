@@ -15,7 +15,7 @@ text {
   font-size: 20px;
 }
 </style>
-<text x="400" y="40" text-anchor="middle" class="sponsorkit-tier-title">Developers</text><a href="https://devinschumacher.com" class="sponsorkit-link" target="_blank" id="devinschumacher">
+<text x="400" y="40" text-anchor="middle" class="sponsorkit-tier-title">Bronze Sponsors</text><a href="https://devinschumacher.com" class="sponsorkit-link" target="_blank" id="devinschumacher">
   <text x="400" y="133" text-anchor="middle" class="sponsorkit-name" fill="currentColor">Devin</text>
   
   <clipPath id="c8cd017">

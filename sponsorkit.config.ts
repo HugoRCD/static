@@ -37,7 +37,7 @@ export default defineConfig({
     },
     // $32 tier - Vote on features
     {
-      title: 'Developers',
+      title: 'Bronze Sponsors',
       monthlyDollars: 32,
       preset: tierPresets.medium,
     },
@@ -97,7 +97,7 @@ export default defineConfig({
   },
 
   // Additional renders for different formats
-  renders: [
+  /*renders: [
     {
       name: 'sponsors',
       width: 800,
@@ -135,5 +135,5 @@ export default defineConfig({
         radiusPast: 3
       }
     }
-  ]
+  ]*/
 })
