@@ -1,18 +1,18 @@
 [
   {
-    "name": "Devin Schumacher",
-    "login": "devinschumacher",
-    "avatar": "https://avatars.githubusercontent.com/u/45643901?u=09bdf49235a1f74e9732d7f3dabc8235a832a826&v=4",
-    "amount": 32,
-    "link": "https://github.com/devinschumacher",
-    "org": false
-  },
-  {
     "name": "Johann Cavallucci",
     "login": "cavalluccijohann",
     "avatar": "https://avatars.githubusercontent.com/u/72015679?u=a407c194ade91e8c93f9b6cee2578f7a1f6182ee&v=4",
     "amount": 1,
     "link": "https://github.com/cavalluccijohann",
+    "org": false
+  },
+  {
+    "name": "Devin Schumacher",
+    "login": "devinschumacher",
+    "avatar": "https://avatars.githubusercontent.com/u/45643901?u=09bdf49235a1f74e9732d7f3dabc8235a832a826&v=4",
+    "amount": -1,
+    "link": "https://github.com/devinschumacher",
     "org": false
   },
   {
