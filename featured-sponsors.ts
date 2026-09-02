@@ -2,16 +2,19 @@ import type { Sponsorship } from 'sponsorkit'
 
 export interface FeaturedSponsor {
   enabled: boolean
-  monthlyDollars: number
+  /** Custom wordmark banner (e.g. Vercel) instead of an avatar in the grid. */
+  customBanner?: boolean
+  monthlyDollars?: number
   sponsor: Sponsorship['sponsor']
 }
 
-// Flip `enabled` to include an entry in the generated image. Disabled
-// entries are not unshifted, so they do not appear in sponsors.svg.
+// Flip `enabled` to include an entry. Vercel uses a custom banner via
+// composeAfter, not an avatar. Other companies without a custom logo are
+// unshifted into the avatar grid when enabled.
 export const featuredSponsors: FeaturedSponsor[] = [
   {
     enabled: false,
-    monthlyDollars: 2000,
+    customBanner: true,
     sponsor: {
       name: 'Vercel',
       login: 'vercel',
@@ -23,11 +26,17 @@ export const featuredSponsors: FeaturedSponsor[] = [
   },
 ]
 
-export function getEnabledFeaturedSponsors(): Sponsorship[] {
+export function isVercelBannerEnabled(): boolean {
+  return featuredSponsors.some(
+    entry => entry.enabled && entry.customBanner && entry.sponsor.login === 'vercel',
+  )
+}
+
+export function getEnabledFeaturedAvatars(): Sponsorship[] {
   return featuredSponsors
-    .filter(entry => entry.enabled)
+    .filter(entry => entry.enabled && !entry.customBanner)
     .map(entry => ({
-      monthlyDollars: entry.monthlyDollars,
+      monthlyDollars: entry.monthlyDollars ?? 2000,
       privacyLevel: 'PUBLIC',
       sponsor: entry.sponsor,
     }))

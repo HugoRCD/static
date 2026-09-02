@@ -1,7 +1,8 @@
 import { defineConfig, tierPresets } from 'sponsorkit'
 // @ts-ignore
 import fs from 'fs/promises'
-import { featuredSponsors, getEnabledFeaturedSponsors } from './featured-sponsors'
+import { getEnabledFeaturedAvatars, isVercelBannerEnabled } from './featured-sponsors'
+import { VERCEL_LOGO } from './vercel-logo'
 
 export default defineConfig({
   // Providers configs
@@ -17,7 +18,7 @@ export default defineConfig({
   prorateOnetime: true,
   formats: ['svg', 'png'],
   onSponsorsAllFetched(sponsors) {
-    sponsors.unshift(...getEnabledFeaturedSponsors())
+    sponsors.unshift(...getEnabledFeaturedAvatars())
     return sponsors
   },
   tiers: [
@@ -80,15 +81,20 @@ export default defineConfig({
       monthlyDollars: 1024,
       preset: tierPresets.xl,
     },
-    // Featured slot (Antfu pattern). Empty composeAfter while no featured
-    // sponsors are enabled. When an entry is enabled it is injected with a
-    // high monthlyDollars value and appears in the matching dollar tier.
+    // Featured banner slot (Antfu pattern). composeAfter draws the Vercel
+    // wordmark only when that featured entry is enabled; otherwise nothing.
     {
       title: 'Special Sponsor',
       monthlyDollars: Infinity,
-      composeAfter() {
-        if (!featuredSponsors.some(entry => entry.enabled))
+      composeAfter(compose, _, config) {
+        if (!isVercelBannerEnabled())
           return
+        compose
+          .addSpan(20)
+          .addText('Special Sponsor', 'sponsorkit-tier-title')
+          .addSpan(10)
+          .addRaw(VERCEL_LOGO(config.width!, compose.height))
+          .addSpan(130)
       },
     },
   ],
