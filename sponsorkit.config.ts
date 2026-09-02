@@ -10,6 +10,7 @@ export default defineConfig({
   },
   width: 800,
   renderer: 'tiers',
+  includePastSponsors: true,
   formats: ['svg', 'png'],
   tiers: [
     // Past sponsors
