@@ -12,8 +12,8 @@ importers:
         specifier: ^22.19.17
         version: 22.19.17
       sponsorkit:
-        specifier: ^16.5.0
-        version: 16.5.0
+        specifier: ^17.1.1
+        version: 17.1.1
 
 packages:
 
@@ -179,13 +179,13 @@ packages:
   '@types/node@22.19.17':
     resolution: {integrity: sha512-wGdMcf+vPYM6jikpS/qhg6WiqSV/OhG+jeeHT/KlVqxYfD40iYJf9/AE1uQxVWFvU7MipKRkRv8NSHiCGgPr8Q==}
 
-  ansis@4.2.0:
-    resolution: {integrity: sha512-HqZ5rWlFjGiV0tDm3UxxgNRqsOTniqoKZu0pIAfh7TZQMGuZK+hH0drySty0si0QXj1ieop4+SkSfPZBPPkHig==}
+  ansis@4.3.1:
+    resolution: {integrity: sha512-BJ8/l4R5LRE7hW9WdSuGYrLSHi2ynxeFpDFbH0K/CgNeY/tyhk+vO6TYxXC5r5CpUhNVX310xzPsN/H9lCdfOA==}
     engines: {node: '>=14'}
 
-  cac@6.7.14:
-    resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
-    engines: {node: '>=8'}
+  cac@7.0.0:
+    resolution: {integrity: sha512-tixWYgm5ZoOD+3g6UTea91eow5z6AAHaho3g0V9CNSNb45gM8SmflpAc+GRd1InC4AqN/07Unrgp56Y94N9hJQ==}
+    engines: {node: '>=20.19.0'}
 
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
@@ -201,8 +201,8 @@ packages:
     resolution: {integrity: sha512-Btj2BOOO83o3WyH59e8MgXsxEQVcarkUOpEYrubB0urwnN10yQ364rsiByU11nZlqWYZm05i/of7io4mzihBtQ==}
     engines: {node: '>=8'}
 
-  dotenv@16.6.1:
-    resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
     engines: {node: '>=12'}
 
   jiti@2.6.1:
@@ -227,8 +227,8 @@ packages:
     resolution: {integrity: sha512-Ou9I5Ft9WNcCbXrU9cMgPBcCK8LiwLqcbywW3t4oDV37n1pzpuNLsYiAV8eODnjbtQlSDwZ2cUEeQz4E54Hltg==}
     engines: {node: ^18.17.0 || ^20.3.0 || >=21.0.0}
 
-  sponsorkit@16.5.0:
-    resolution: {integrity: sha512-GvlLg88eAEbKzROwAspT+PQTMfHN9KQ+zgPqBBvV1W2jQmKxOtnv9vjgByXvXA2dvTjnksdvbTuwqhJZllyLQA==}
+  sponsorkit@17.1.1:
+    resolution: {integrity: sha512-qsDA8ggyJSVszmaDa9aXJFp6DXu8ucK1kA2LRhxijpKcmRA9ndDcQZd8j9RfnLto49Q3SuAsH0L+8QStaZhwzw==}
     hasBin: true
 
   tslib@2.8.1:
@@ -357,9 +357,9 @@ snapshots:
     dependencies:
       undici-types: 6.21.0
 
-  ansis@4.2.0: {}
+  ansis@4.3.1: {}
 
-  cac@6.7.14: {}
+  cac@7.0.0: {}
 
   consola@3.4.2: {}
 
@@ -369,7 +369,7 @@ snapshots:
 
   detect-libc@2.1.2: {}
 
-  dotenv@16.6.1: {}
+  dotenv@17.4.2: {}
 
   jiti@2.6.1: {}
 
@@ -416,12 +416,12 @@ snapshots:
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
 
-  sponsorkit@16.5.0:
+  sponsorkit@17.1.1:
     dependencies:
-      ansis: 4.2.0
-      cac: 6.7.14
+      ansis: 4.3.1
+      cac: 7.0.0
       consola: 3.4.2
-      dotenv: 16.6.1
+      dotenv: 17.4.2
       ofetch: 1.5.1
       sharp: 0.34.5
       unconfig: 7.5.0

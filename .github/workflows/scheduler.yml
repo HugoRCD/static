@@ -1,42 +1,105 @@
 name: Scheduler
 
+# Daily SponsorKit generation of sponsors.svg / sponsors.png / sponsors.json.
+#
+# GitHub disables scheduled workflows on public repos after 60 days with no
+# repository activity. Scheduled runs themselves do not count as activity, and
+# EndBug/add-and-commit only creates a commit when files change. When the
+# sponsor list is stable the job used to succeed with no commit, and the cron
+# was eventually disabled (state: disabled_inactivity).
+#
+# Each successful run therefore writes .github/last-sponsors-run so the repo
+# always gets a keep-alive commit, while still updating sponsors.* when needed.
+
 on:
   workflow_dispatch:
   schedule:
     - cron: '0 0 * * *'
   push:
-    branches: [ main ]
+    branches: [main]
+    # Only regenerate when generator inputs change. Combined with [ci skip] on
+    # the keep-alive commit, this prevents an infinite push loop.
+    paths:
+      - 'sponsorkit.config.ts'
+      - 'featured-sponsors.ts'
+      - 'vercel-logo.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/scheduler.yml'
 
 permissions:
   contents: write
+
+concurrency:
+  group: update-sponsors
+  cancel-in-progress: true
 
 jobs:
   update-sponsors:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          persist-credentials: false
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
       - name: Set node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: lts/*
+          cache: pnpm
+
+      - name: Check SPONSORKIT_GITHUB_TOKEN
+        env:
+          SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
+        run: |
+          if [ -z "${SPONSORKIT_GITHUB_TOKEN}" ]; then
+            echo "::error::Repository secret SPONSORKIT_GITHUB_TOKEN is missing or empty."
+            echo "Create a classic Personal Access Token with the read:user and read:org scopes,"
+            echo "then add it as SPONSORKIT_GITHUB_TOKEN (Settings → Secrets and variables → Actions)."
+            echo "Do not use GITHUB_TOKEN: GitHub hides sponsor tier amounts from it, and SponsorKit"
+            echo "drops sponsors without a tier, which would overwrite sponsors.svg with an empty image."
+            echo "See README.md for setup."
+            exit 1
+          fi
 
       - run: pnpm i
 
       - name: Update sponsors
-        run: npm run build
+        run: pnpm build
         env:
           SPONSORKIT_GITHUB_TOKEN: ${{ secrets.SPONSORKIT_GITHUB_TOKEN }}
           SPONSORKIT_GITHUB_LOGIN: hugorcd
 
+      - name: Verify generated files
+        run: |
+          for f in sponsors.svg sponsors.png sponsors.json; do
+            if [ ! -s "$f" ]; then
+              echo "::error::$f was not generated or is empty"
+              exit 1
+            fi
+          done
+
+      - name: Record last successful run
+        run: printf '%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > .github/last-sponsors-run
+
+      # persist-credentials is false above, so restore git auth only for this push.
+      # EndBug/add-and-commit uses the local git remote; env.GITHUB_TOKEN alone is
+      # not enough. gh auth setup-git registers a credential helper without writing
+      # the token into .git/config during pnpm i / pnpm build.
+      - name: Restore git credentials for push
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh auth setup-git
+
       - name: Commit
-        uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@290ea2c423ad77ca9c62ae0f5b224379612c0321 # v10.0.0
         with:
           author_name: GitHub Actions
           author_email: 41898282+github-actions[bot]@users.noreply.github.com
           message: 'chore: update sponsors.svg [ci skip]'
-          add: "sponsors.*"
+          add: 'sponsors.* .github/last-sponsors-run'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

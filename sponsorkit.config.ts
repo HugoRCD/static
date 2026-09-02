@@ -1,6 +1,8 @@
 import { defineConfig, tierPresets } from 'sponsorkit'
 // @ts-ignore
 import fs from 'fs/promises'
+import { getEnabledFeaturedAvatars, isVercelBannerEnabled } from './featured-sponsors'
+import { VERCEL_LOGO } from './vercel-logo'
 
 export default defineConfig({
   // Providers configs
@@ -10,7 +12,15 @@ export default defineConfig({
   },
   width: 800,
   renderer: 'tiers',
+  includePastSponsors: true,
+  // GitHub marks one-time sponsorships inactive immediately. Without this they
+  // would land in Past Sponsors (monthlyDollars: -1) instead of the matching tier.
+  prorateOnetime: true,
   formats: ['svg', 'png'],
+  onSponsorsAllFetched(sponsors) {
+    sponsors.unshift(...getEnabledFeaturedAvatars())
+    return sponsors
+  },
   tiers: [
     // Past sponsors
     {
@@ -70,6 +80,22 @@ export default defineConfig({
       title: 'Special Sponsors',
       monthlyDollars: 1024,
       preset: tierPresets.xl,
+    },
+    // Featured banner slot (Antfu pattern). composeAfter draws the Vercel
+    // wordmark only when that featured entry is enabled; otherwise nothing.
+    {
+      title: 'Special Sponsor',
+      monthlyDollars: Infinity,
+      composeAfter(compose, _, config) {
+        if (!isVercelBannerEnabled())
+          return
+        compose
+          .addSpan(20)
+          .addText('Special Sponsor', 'sponsorkit-tier-title')
+          .addSpan(10)
+          .addRaw(VERCEL_LOGO(config.width!, compose.height))
+          .addSpan(130)
+      },
     },
   ],
   outputDir: '.',
