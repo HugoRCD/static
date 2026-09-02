@@ -16,7 +16,11 @@ https://cdn.jsdelivr.net/gh/hugorcd/static/sponsors.svg
 
 ## Regenerating the sponsors image
 
-The `Scheduler` workflow runs SponsorKit daily at 00:00 UTC, and on pushes to `main` that change `sponsorkit.config.ts`, `package.json`, `pnpm-lock.yaml`, or `.github/workflows/scheduler.yml`.
+The `Scheduler` workflow runs SponsorKit daily at 00:00 UTC, and on pushes to `main` that change `sponsorkit.config.ts`, `featured-sponsors.ts`, `package.json`, `pnpm-lock.yaml`, or `.github/workflows/scheduler.yml`.
+
+GitHub marks one-time sponsorships as inactive immediately. SponsorKit only fetches them when `includePastSponsors` is true, and without `prorateOnetime` they would be treated as past (`monthlyDollars: -1`). This repo fetches past sponsors and prorates one-shots so they still appear in the matching current tier for the gift's duration.
+
+Optional featured logos live in `featured-sponsors.ts` and are off by default. Enabling an entry injects it with a high `monthlyDollars` value so it shows in the generated image.
 
 ### Required secret
 

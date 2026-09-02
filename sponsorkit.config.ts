@@ -1,6 +1,7 @@
 import { defineConfig, tierPresets } from 'sponsorkit'
 // @ts-ignore
 import fs from 'fs/promises'
+import { featuredSponsors, getEnabledFeaturedSponsors } from './featured-sponsors'
 
 export default defineConfig({
   // Providers configs
@@ -11,7 +12,14 @@ export default defineConfig({
   width: 800,
   renderer: 'tiers',
   includePastSponsors: true,
+  // GitHub marks one-time sponsorships inactive immediately. Without this they
+  // would land in Past Sponsors (monthlyDollars: -1) instead of the matching tier.
+  prorateOnetime: true,
   formats: ['svg', 'png'],
+  onSponsorsAllFetched(sponsors) {
+    sponsors.unshift(...getEnabledFeaturedSponsors())
+    return sponsors
+  },
   tiers: [
     // Past sponsors
     {
@@ -71,6 +79,17 @@ export default defineConfig({
       title: 'Special Sponsors',
       monthlyDollars: 1024,
       preset: tierPresets.xl,
+    },
+    // Featured slot (Antfu pattern). Empty composeAfter while no featured
+    // sponsors are enabled. When an entry is enabled it is injected with a
+    // high monthlyDollars value and appears in the matching dollar tier.
+    {
+      title: 'Special Sponsor',
+      monthlyDollars: Infinity,
+      composeAfter() {
+        if (!featuredSponsors.some(entry => entry.enabled))
+          return
+      },
     },
   ],
   outputDir: '.',

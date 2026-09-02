@@ -21,6 +21,7 @@ on:
     # the keep-alive commit, this prevents an infinite push loop.
     paths:
       - 'sponsorkit.config.ts'
+      - 'featured-sponsors.ts'
       - 'package.json'
       - 'pnpm-lock.yaml'
       - '.github/workflows/scheduler.yml'
