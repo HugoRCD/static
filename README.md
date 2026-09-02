@@ -16,7 +16,7 @@ https://cdn.jsdelivr.net/gh/hugorcd/static/sponsors.svg
 
 ## Regenerating the sponsors image
 
-The `Scheduler` workflow runs SponsorKit daily at 00:00 UTC and whenever generator config is pushed to `main`.
+The `Scheduler` workflow runs SponsorKit daily at 00:00 UTC, and on pushes to `main` that change `sponsorkit.config.ts`, `package.json`, `pnpm-lock.yaml`, or `.github/workflows/scheduler.yml`.
 
 ### Required secret
 
@@ -35,8 +35,13 @@ If GitHub shows that the schedule was disabled after 60 days of inactivity, clic
 
 ### Local generation
 
+Set `SPONSORKIT_GITHUB_TOKEN` in your environment or a secret manager (do not paste it on the command line; that can land in shell history):
+
 ```sh
-export SPONSORKIT_GITHUB_TOKEN=ghp_...
+printf 'SPONSORKIT_GITHUB_TOKEN: '
+read -s SPONSORKIT_GITHUB_TOKEN
+echo
+export SPONSORKIT_GITHUB_TOKEN
 export SPONSORKIT_GITHUB_LOGIN=hugorcd
 pnpm i
 pnpm build
