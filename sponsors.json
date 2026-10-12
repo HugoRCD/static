@@ -2,9 +2,25 @@
   {
     "name": "Oskar Lebuda",
     "login": "OskarLebuda",
-    "avatar": "https://avatars.githubusercontent.com/u/10373127?u=33d3700cfce271aa08ff62412cc6e51568a2f9fc&v=4",
+    "avatar": "https://avatars.githubusercontent.com/u/10373127?u=b360594a3d598a011fbcdec626935d88d0a7990b&v=4",
     "amount": 4,
     "link": "https://github.com/OskarLebuda",
+    "org": false
+  },
+  {
+    "name": "Ben Sabic",
+    "login": "bensabic",
+    "avatar": "https://avatars.githubusercontent.com/u/27636870?u=35c43a7d9c61aa9c55091ac7c3f4fd04cf96d153&v=4",
+    "amount": -1,
+    "link": "https://github.com/bensabic",
+    "org": false
+  },
+  {
+    "name": "Aovee",
+    "login": "aovee",
+    "avatar": "https://avatars.githubusercontent.com/u/6479304?u=ef72511d9e5de4f04cf250812ef2bd7c0009ebe2&v=4",
+    "amount": -1,
+    "link": "https://github.com/aovee",
     "org": false
   },
   {
